@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
       this.resetForm()
       this.resortListOfItems()
       this.renderListOfItems()
+      this.listenDeleteBtns()
       this.updateSelectOptions()
     })
   }
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit {
     const i = this.elements.findIndex(el => +el.serialNumber === serialNumber)
     this.elements.splice(i, 1)
     this.renderListOfItems()
-    // listen delete
+    this.listenDeleteBtns()
     this.updateSelectOptions()
   }
 
@@ -100,7 +101,7 @@ export class AppComponent implements OnInit {
             ${figure}
             <div class="block_btn_delete_create_date">
                 <p>${date}</p>
-                <button class="btn_delete" onclick="removeElement(${serialNumber})">Х</button>
+                <button class="btn_delete">Х</button>
             </div>
         </div>`
   }
@@ -167,5 +168,11 @@ export class AppComponent implements OnInit {
 
   initForm(): void {
     this.updateSelectOptions()
+  }
+
+  listenDeleteBtns(): void {
+    document.querySelectorAll('.btn_delete').forEach((btn, i) => {
+      btn.addEventListener('click', () => this.removeElement(i + 1))
+    })
   }
 }
