@@ -1,1 +1,175 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*html, body { height: 100%; }*/
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/*styles for form*/
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  flex: 2;
+}
+
+select {
+  width: 90%;
+  height: 50px;
+  margin: 0 0 20px;
+  border: 1px solid orange;
+}
+
+select:focus {
+  outline: none;
+}
+
+.btn_submit {
+  width: 20%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: orange;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn_submit:disabled {
+  background-color: gray;
+  color: darkgray;
+}
+
+/*styles for list*/
+
+.list {
+  flex: 3;
+  height: 100vh;
+  padding-right: 20px;
+  overflow-y: scroll;
+}
+
+.block {
+  display: flex;
+  justify-content: space-between;
+  min-height: 130px;
+  margin: 0 0 30px;
+  padding: 20px;
+  border: 1px solid orange;
+  font-family: Monospaced, sans-serif;
+  color: #837967;
+}
+
+.block_btn_delete_create_date {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.btn_delete {
+  width: 25px;
+  border: none;
+  color: red;
+  background: inherit;
+  cursor: pointer;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  margin: 13px 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 60px solid;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.parallelogram  {
+  width: 100px;
+  height: 50px;
+  margin: 22px 0;
+  transform: skew(20deg);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.trapezoid {
+  height: 0;
+  width: 80px;
+  margin: 10px 0;
+  border-bottom: 45px solid;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+/*animation*/
+@keyframes toTheRight {
+  25% {
+    transform: rotate(90deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(350deg);
+  }
+}
+
+@keyframes toTheLeft {
+  25% {
+    transform: rotate(-90deg);
+  }
+
+  50% {
+    transform: rotate(-180deg);
+  }
+
+  75% {
+    transform: rotate(-270deg);
+  }
+
+  100% {
+    transform: rotate(-350deg);
+  }
+}
+
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: orange;
+  border-radius: 7px;
+}
