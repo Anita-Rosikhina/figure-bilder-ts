@@ -13,21 +13,20 @@ import {Trapezoid} from "./models/trapezoid.model";
 })
 
 export class AppComponent {
-  list: HTMLElement;
-  btnSubmit: HTMLButtonElement;
-  selectSerialNumber: HTMLSelectElement;
-  selectFigureTypes: HTMLSelectElement;
-  selectColor: HTMLSelectElement;
-  selectRotation: HTMLSelectElement;
-  form: HTMLFormElement;
+  public list: HTMLElement;
+  public btnSubmit: HTMLButtonElement;
+  public selectSerialNumber: HTMLSelectElement;
+  public selectFigureTypes: HTMLSelectElement;
+  public selectColor: HTMLSelectElement;
+  public selectRotation: HTMLSelectElement;
+  public form: HTMLFormElement;
 
-
-  AMOUNT_OF_OPTIONS: number = 10;
-  elements: IList[] = [];
-  listHtml: string[] = [];
-  figureTypes: figureType[] = ['square', 'triangle', 'parallelogram', 'trapezoid'];
-  colorOption: colorType[] = ['black', 'red', 'pink', 'green', 'skyblue', 'yellow', 'greenyellow', 'darkorange', 'darkcyan', 'rebeccapurple'];
-  rotationOption: rotationType[] = ['toTheRight', 'toTheLeft'];
+  private readonly AMOUNT_OF_OPTIONS: number = 10;
+  public elements: IList[] = [];
+  public listHtml: string[] = [];
+  public figureTypes: figureType[] = ['square', 'triangle', 'parallelogram', 'trapezoid'];
+  public colorOption: colorType[] = ['black', 'red', 'pink', 'green', 'skyblue', 'yellow', 'greenyellow', 'darkorange', 'darkcyan', 'rebeccapurple'];
+  public rotationOption: rotationType[] = ['toTheRight', 'toTheLeft'];
 
   constructor() {
     Promise.resolve().then(() => {
@@ -38,7 +37,7 @@ export class AppComponent {
     })
   }
 
-  onSubmit(): void {
+  private onSubmit(): void {
     this.addListItem();
     this.resetForm();
     this.resortListOfItems(this.elements);
@@ -47,7 +46,7 @@ export class AppComponent {
     this.updateSelectOptions();
   }
 
-  getElement(): void {
+  private getElement(): void {
     this.list = document.querySelector('.list');
     this.btnSubmit = document.querySelector('.btn_submit');
     this.selectSerialNumber = document.getElementById('selectSerialNumber') as HTMLSelectElement;
@@ -57,13 +56,13 @@ export class AppComponent {
     this.form = document.getElementById('form') as HTMLFormElement
   }
 
-  getSelectOption(): void {
+  public getSelectOption(): void {
     this.generateOption(this.selectColor, this.colorOption);
     this.generateOption(this.selectFigureTypes, this.figureTypes);
     this.generateOption(this.selectRotation, this.rotationOption);
   }
 
-  addListItem(): void {
+  public addListItem(): void {
     const typeFigure = this.selectFigureTypes?.value as figureType;
     const serialNumber: string = this.selectSerialNumber?.value;
     const rotation: string = this.selectRotation?.value;
@@ -72,7 +71,7 @@ export class AppComponent {
     this.elements.push(new List(serialNumber, figure));
   }
 
-  createElement(typeFigure: figureType, rotation: string, color: string): IFigure {
+  public createElement(typeFigure: figureType, rotation: string, color: string): IFigure {
     switch (typeFigure) {
       case 'triangle':
         return new Triangle(rotation, color);
@@ -85,7 +84,7 @@ export class AppComponent {
     }
   }
 
-  removeElement(serialNumber: number): void {
+  public removeElement(serialNumber: number): void {
     const i = this.elements.findIndex(el => +el.serialNumber === serialNumber);
     this.elements.splice(i, 1);
     this.renderListOfItems();
@@ -93,11 +92,11 @@ export class AppComponent {
     this.updateSelectOptions();
   }
 
-  resortListOfItems(list: IList[]): IList[] {
+  public resortListOfItems(list: IList[]): IList[] {
     return list.sort((a, b) => +a.serialNumber - +b.serialNumber);
   }
 
-  renderListOfItems(): void {
+  public renderListOfItems(): void {
     while (this.list?.firstChild) {
       this.list.removeChild(this.list.lastChild as Node);
     }
@@ -105,19 +104,19 @@ export class AppComponent {
     this.list.insertAdjacentHTML('beforeend', this.listHtml.join(''));
   }
 
-  updateSelectOptions(): void {
+  public updateSelectOptions(): void {
     const list: number[] = this.getAvailableSelectNumberOptions();
     this.renderSelectOptions(list);
     this.disableButton(list);
   }
 
-  getAvailableSelectNumberOptions(): number[] {
+  public getAvailableSelectNumberOptions(): number[] {
     const numberOptions = Array.from({length: this.AMOUNT_OF_OPTIONS}, (_, i) => i + 1);
     const serialNumbers = this.elements.map(e => +e.serialNumber);
     return numberOptions.filter(e => !serialNumbers.includes(e));
   }
 
-  renderSelectOptions(list: number[]): void {
+  public renderSelectOptions(list: number[]): void {
     (this.selectSerialNumber as HTMLElement).innerHTML = '';
     list.forEach(serialNumber => {
       const option = this.createOption(serialNumber.toString(), serialNumber.toString());
@@ -125,32 +124,32 @@ export class AppComponent {
     })
   }
 
-  resetForm(): void {
+  public resetForm(): void {
     this.form.reset();
   }
 
-  disableButton(list: number[]): void {
+  public disableButton(list: number[]): void {
     (this.btnSubmit as HTMLButtonElement).disabled = !list.length;
   }
 
-  createOption(value: string, text: string): HTMLOptionElement {
+  public createOption(value: string, text: string): HTMLOptionElement {
     const option = document.createElement('option');
     option.value = value;
     option.text = text;
     return option;
   }
 
-  generateOption(select: HTMLSelectElement, types: string[]): void {
+  public generateOption(select: HTMLSelectElement, types: string[]): void {
     types.forEach(el => {
       select.appendChild(this.createOption(el, el));
     });
   }
 
-  initForm(): void {
+  public initForm(): void {
     this.updateSelectOptions();
   }
 
-  listenDeleteBtns(): void {
+  public listenDeleteBtns(): void {
     document.querySelectorAll('.btn_delete').forEach((btn, i) => {
       btn.addEventListener('click', () => this.removeElement(i + 1));
     })
